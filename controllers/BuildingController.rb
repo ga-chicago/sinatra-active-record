@@ -6,13 +6,19 @@ class BuildingController < Sinatra::Base
     buildings.to_json
   end
 
-  get '/:id' do
+  get '/:id/:token' do
     response['Access-Control-Allow-Origin'] = '*'
     content_type :json
     id = params[:id]
-    building = Building.find(id)
-    tenants = building.tenants
-    {building: building, tenants: tenants}.to_json
+    token = params[:token]
+    user = User.find_by({token: token})
+    if user
+      building = Building.find(id)
+      tenants = building.tenants
+      {building: building, tenants: tenants}.to_json
+    else
+      "ACCESS DENIED YOU MAY NOT PASS"
+    end
   end
 
   post '/' do

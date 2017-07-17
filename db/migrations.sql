@@ -14,3 +14,6 @@ name VARCHAR(255), floor INT, suite INT);
 CREATE TABLE building_tenants (id SERIAL PRIMARY KEY,
 building_id INT references buildings(id),
 tenant_id INT references tenants(id));
+
+CREATE TABLE users (id SERIAL PRIMARY KEY,
+username VARCHAR(255), password_digest VARCHAR(255), token BIGINT);
